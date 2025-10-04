@@ -183,6 +183,36 @@
             background: #4CAF50;
         }
 
+        .open-btn {
+            width: 100%;
+            padding: 10px;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .open-btn:hover {
+            background: #20BA5A;
+            transform: translateY(-1px);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-group .copy-btn,
+        .button-group .open-btn {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
         .helper-text {
             font-size: 12px;
             color: #999;
@@ -213,7 +243,10 @@
         <div class="result" id="result">
             <div class="result-label">Your WhatsApp Link:</div>
             <div class="link-display" id="linkDisplay"></div>
-            <button class="copy-btn" id="copyBtn" onclick="copyLink()">Copy Link</button>
+            <div class="button-group">
+                <button class="open-btn" id="openBtn" onclick="openInWhatsApp()">📱 Open in WhatsApp</button>
+                <button class="copy-btn" id="copyBtn" onclick="copyLink()">Copy Link</button>
+            </div>
         </div>
     </div>
 
@@ -266,6 +299,18 @@
             }).catch(err => {
                 alert('Failed to copy link');
             });
+        }
+
+        function openInWhatsApp() {
+            const linkDisplay = document.getElementById('linkDisplay');
+            const url = linkDisplay.textContent;
+            
+            if (url) {
+                // Open WhatsApp directly
+                window.open(url, '_blank');
+            } else {
+                alert('Please generate a link first');
+            }
         }
 
         // Allow Enter key to generate link
